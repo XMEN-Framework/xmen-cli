@@ -22,7 +22,6 @@ program
                 source: 'github:XMEN-Framework/xmen#master',
             };
             
-            console.log(gitOptions);
             download(gitOptions.source, path, function(err) {
                 if (err) {
                     console.error('Error occured downloading project');
