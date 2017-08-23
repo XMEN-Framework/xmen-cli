@@ -7,6 +7,7 @@
 var program = require('commander');
 var download = require('download-git-repo');
 var fs = require('fs');
+var npm = require('npm');
 var dir = './';
 
 program
@@ -29,8 +30,18 @@ program
                     return;
                 }
                 console.log("Successfully downloaded XMEN");
-            });
 
+                // cd into folder
+                npm.load(function(err) {
+                    console.log("NPM install...", path);
+                    npm.prefix = path;
+                    npm.commands.install([], function(er, data) {
+                        if (er) return console.log(er);
+                        return;
+                    });
+                });
+
+            });
 
         } else {
             console.log("Folder with name '%s' already exists", name);

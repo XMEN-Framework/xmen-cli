@@ -1,5 +1,5 @@
 {
-  "name": "xmen-cli",
+  "name": "@xmen-framework/xmen-cli",
   "version": "1.0.0",
   "description": "XMEN CLI Tool for code generation.",
   "main": "index.js",
@@ -9,10 +9,21 @@
   "bin": {
     "xmen-cli": "index.js"
   },
-  "author": "",
+  "author": "John Taylor",
   "license": "ISC",
   "dependencies": {
     "commander": "^2.11.0",
-    "download-git-repo": "^1.0.1"
-  }
+    "download-git-repo": "^1.0.1",
+    "ffi": "^2.2.0",
+    "npm": "^5.3.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XMEN-Framework/xmen-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/XMEN-Framework/xmen-cli/issues"
+  },
+  "homepage": "https://github.com/XMEN-Framework/xmen-cli#readme"
 }
