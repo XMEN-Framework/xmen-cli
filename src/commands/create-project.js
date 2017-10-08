@@ -17,7 +17,7 @@ module.exports = (program, config) => {
             // Create a new folder in this directory.
             if (!fs.existsSync(dir + name)) {
                 console.log("Creating new directory '%s'", name);
-                var path = dir + name;
+                var path = dir + '/' + name;
 
                 var gitOptions = {
                     source: 'github:XMEN-Framework/xmen#master',
@@ -37,6 +37,8 @@ module.exports = (program, config) => {
                         npm.prefix = path;
                         npm.commands.install([], (err, data) => {
                             if (err) return console.log(err);
+
+                            fs.writeFileSync(path + '/.xmen-cli.json', configTemplate(name));
                             return;
                         });
                     });
@@ -47,4 +49,12 @@ module.exports = (program, config) => {
                 console.log("Folder with name '%s' already exists", name);
             }
         });
+}
+
+
+function configTemplate(name) {
+    return`{
+    "name": "${name}",
+    "app": "./app"
+}`;
 }
