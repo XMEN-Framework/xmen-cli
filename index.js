@@ -8,44 +8,18 @@ var program = require('commander');
 var download = require('download-git-repo');
 var fs = require('fs');
 var npm = require('npm');
-var dir = './';
 
-program
-    .command('new [name]')
-    .description('Create a new XMEN project')
-    .action(function(name, options) {
-        // Create a new folder in this directory.
-        if (!fs.existsSync(dir + name)) {
-            console.log("Creating new directory '%s'", name);
-            let path = dir + name;
+var config = null;
 
-            var gitOptions = {
-                source: 'github:XMEN-Framework/xmen#master',
-            };
-            
-            download(gitOptions.source, path, function(err) {
-                if (err) {
-                    console.error('Error occured downloading project');
-                    console.log(err);
-                    return;
-                }
-                console.log("Successfully downloaded XMEN");
+try {
+    console.log(process.cwd() + '/.xmen-cli.json');
+    config = require(process.cwd() + '/.xmen-cli.json');
+    console.log(config);
+} catch (e) {
+    console.log(e);
+    console.log("No cli config");
+}
 
-                // cd into folder
-                npm.load(function(err) {
-                    console.log("NPM install...", path);
-                    npm.prefix = path;
-                    npm.commands.install([], function(er, data) {
-                        if (er) return console.log(er);
-                        return;
-                    });
-                });
-
-            });
-
-        } else {
-            console.log("Folder with name '%s' already exists", name);
-        }
-    });
+var commands = require('./src/commands')(program, config);
 
 program.parse(process.argv);
